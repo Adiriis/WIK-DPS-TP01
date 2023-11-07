@@ -12,7 +12,7 @@ const server = http.createServer((req, res) => {
   }
 });
 
-const port = 3005;
-server.listen(port, () => {
-  console.log(`Serv en écoute sur le PORT ${port}`);
+const PING_LISTEN_PORT = 3005;
+server.listen(PING_LISTEN_PORT, () => {
+  console.log(`Serv en écoute sur le PORT ${PING_LISTEN_PORT}`);
 });
