@@ -1,0 +1,56 @@
+version: '3.8'
+
+services:
+  # Déclaration des services
+  mon_appli:
+    # Nom de notre service
+    build:
+      # Définition du Dockerfile à build et à utiliser
+      context: .
+      # Fichier Dockerfile
+      dockerfile: wik-dps-tp02.dockerfile
+
+    expose:
+      # Ouvre le port au niveau du réseau
+      - '8080'
+    
+    deploy:
+      # Nombre de réplicas souhaitées
+      replicas: 4
+      # Déploiement de 4 réplications du container dans le service mon_appli
+
+    restart: always
+    # Reboot en cas d'arrêt du container
+
+    environment: #Definition du port d'écoute de l'application (spécifique au TP)
+      - PING_LISTEN_PORT=8080 
+
+    networks:
+      # Configure le réseau du service
+      - front-net  # mapping en bridge par défaut
+
+  proxy:
+    # Définition du proxy pour load balancing
+    image: nginx:latest
+    volumes:
+      - /home/julien/correction-api/nginx.conf:/etc/nginx/nginx.conf:ro
+      # Montage d'un fichier du répertoire courant de l'hôte sur le service en read-only
+
+    ports:
+      # Port Forwarding entre Host et Service du proxy
+      - 7777:80
+
+    depends_on: #Le proxy ne demarre pas tant que mon_appli n'est pas exécuté
+      - mon_appli
+
+    networks:
+      # Configure le réseau du service
+      # Il est accessible seulement via le réseau nommé
+      # front-net
+      - front-net
+
+# Déclaration des réseaux
+networks:
+  # Un network nommé front-net qui utilise le driver bridge
+  front-net:
+    driver: bridge
