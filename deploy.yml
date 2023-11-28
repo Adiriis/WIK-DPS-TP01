@@ -1,0 +1,23 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: monapi-deployment
+spec:
+  replicas: 4
+  selector:
+    matchLabels:
+      app: monapi
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxUnavailable: 2  # 50% maxUnavailable
+  template:
+    metadata:
+      labels:
+        app: monapi
+    spec:
+      containers:
+      - name: monapi
+        image: registry.cluster.wik.cloud/public/echo
+        ports:
+        - containerPort: 8080
