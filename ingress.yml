@@ -4,7 +4,7 @@ metadata:
   name: monapi-ingress
 spec:
   rules:
-  - host: monapi.local  # Remplacez par votre domaine
+  - host: monapi.local  #Mon domaine choisi
     http:
       paths:
       - path: /
