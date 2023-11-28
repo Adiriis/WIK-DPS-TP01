@@ -7,6 +7,6 @@ spec:
     app: monapi
   ports:
     - protocol: TCP
-      port: 80       # Port exposé sur le service
-      targetPort: 8080  # Port sur lequel les pods écoutent
-  type: ClusterIP    # Type de service ClusterIP
+      port: 80       
+      targetPort: 8080  
+  type: ClusterIP
