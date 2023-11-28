@@ -10,7 +10,7 @@ spec:
   strategy:
     type: RollingUpdate
     rollingUpdate:
-      maxUnavailable: 2  # 50% maxUnavailable
+      maxUnavailable: 2  
   template:
     metadata:
       labels:
